@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_perguntas/questao.dart';
+import 'package:projeto_perguntas/questionario.dart';
 import 'package:projeto_perguntas/resposta.dart';
+import 'package:projeto_perguntas/resultado.dart';
 
 main() => runApp(PerguntaApp());
 
@@ -9,7 +11,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
   final _perguntas = const [
     {
       'label': 'Qual é a sua cor favorita?',
-      'opc': ['Azul', 'Amarelo', 'Vermelhor', 'Branco']
+      'opc': ['Preto', 'Amarelo', 'Vermelhor', 'Branco']
     },
     {
       'label': 'Qual é o seu animal favorito',
@@ -41,18 +43,13 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
     return MaterialApp(
         home: Scaffold(
-      appBar: AppBar(
-        title: Text("Perguntas"),
-      ),
-      body: isSelected
-          ? Column(
-              children: [
-                Questao(_perguntas[_selected]['label']),
-                ..._respostas.map((t) => Resposta(t, _responder)).toList(),
-              ],
-            )
-          : null,
-    ));
+            appBar: AppBar(
+              title: Text("Perguntas"),
+            ),
+            body: isSelected
+                ? Questionario(
+                    _perguntas[_selected]['label'], _respostas, _responder)
+                : Resultado("Parabéns Campeão!")));
   }
 }
 
