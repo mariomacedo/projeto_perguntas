@@ -48,6 +48,13 @@ class _PerguntaAppState extends State<PerguntaApp> {
     print(_totalScore);
   }
 
+  void _restartGame() {
+    setState(() {
+      _selected = 0;
+      _totalScore = 0;
+    });
+  }
+
   bool get isSelected {
     return _selected < _perguntas.length;
   }
@@ -67,7 +74,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
                     label: _perguntas[_selected]['label'],
                     respostas: _respostas,
                     responder: _responder)
-                : Resultado(_totalScore)));
+                : Resultado(_totalScore, _restartGame)));
   }
 }
 
