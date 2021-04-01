@@ -4,17 +4,22 @@ import 'package:projeto_perguntas/resposta.dart';
 
 class Questionario extends StatelessWidget {
   final String label;
-  final List<String> respostas;
-  final void Function() responder;
+  final List<Map<String, Object>> respostas;
+  final void Function(int) responder;
 
-  Questionario(this.label, this.respostas, this.responder);
+  Questionario(
+      {@required this.label,
+      @required this.respostas,
+      @required this.responder});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Questao(label),
-        ...respostas.map((t) => Resposta(t, responder)).toList(),
+        ...respostas.map((resp) {
+          return Resposta(resp['text'], () => responder(resp['score']));
+        }).toList(),
       ],
     );
   }
